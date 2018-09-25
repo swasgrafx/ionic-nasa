@@ -1,14 +1,30 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Ionic NASA Apod
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <div *ngIf="apod">
+
+    <button (click)="randomApod();">Next</button>
+
+    <h1 id="apodTitle">{{ apod.title }}</h1>
+
+    <img *ngIf="apod.media_type==='image'" id="apodImg" src="{{ apod.url }}" alt="{{ apod.title }}">
+
+    <div *ngIf="apod.media_type==='video'" id="apodVideo">
+      <iframe [src]='apod.url | safe' frameborder=0 allowfullscreen></iframe>
+    </div>
+
+    <div>
+      <span id="apodCopy" *ngIf="apod.copyright">{{ apod.copyright }}</span>
+      <span id="apodDate">{{ apod.date | date:medium }}</span>
+    </div>
+
+    <div id="apodDesc">{{ apod.explanation }}</div>
+
+  </div>
 </ion-content>
